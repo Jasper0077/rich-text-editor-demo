@@ -1,14 +1,15 @@
 import React from 'react';
 import parse from "html-react-parser";
+import { JSONContent } from '@tiptap/react';
 
 interface DetailsProps {
-  description: string
+  html: string
 }
 
-export const Details: React.FC<DetailsProps> = ({ description }) => {
+export const Details: React.FC<DetailsProps> = ({ html }) => {
   return (
     <>
-      <div className="ProseMirror">{ parse(description) }</div>
+      <div className="ProseMirror">{ parse(html) }</div>
     </>
   );
 }
