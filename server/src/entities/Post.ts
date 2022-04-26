@@ -17,7 +17,11 @@ export class Post {
   public updated_at: Date;
 
   @Field()
-  @Column({ default: null })
-  content!: JSON;
+  @Column({
+    type: "jsonb",
+    nullable: true,
+    default: {}
+  })
+  content?: string;
 
 }

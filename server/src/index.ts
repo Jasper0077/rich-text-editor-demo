@@ -11,6 +11,7 @@ import { PostResolver } from "./resolvers/post";
 import { MyContext } from "./types";
 
 const main = async () => {
+
   const conn = await createConnection({
     type: "postgres",
     host: "localhost",
