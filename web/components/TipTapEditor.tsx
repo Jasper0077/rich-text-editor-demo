@@ -7,12 +7,13 @@ import Menubar from './Menubar';
 interface TipTapEditorProps {
   setHtml: Dispatch<React.SetStateAction<string>>
   setJson: Dispatch<React.SetStateAction<JSONContent>>
+  savedContent?: JSONContent
 }
 
-const TipTapEditor: React.FC<TipTapEditorProps> = ({ setHtml, setJson }) => {
+const TipTapEditor: React.FC<TipTapEditorProps> = ({ setHtml, setJson, savedContent }) => {
   const editor = useEditor({
     extensions: [StarterKit, Underline],
-    content: ``,
+    content: savedContent ? savedContent : ``,
 
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();

@@ -29,4 +29,23 @@ export class PostResolver {
     await em.save(post)
     return post;
   }
+
+  @Mutation(() => Post, { nullable: true })
+  async editPost(
+    @Arg("id", () => Int) id: number,
+    @Arg("content", () => String) content: string,
+    @Ctx() { em }: MyContext
+  ): Promise<Post | null> {
+    const post = await em.findOne(Post, {
+      where: {
+        id: id
+      }
+    })
+    if (post) {
+      post.content = content;
+      await em.save(post);
+      return post
+    }
+    return null;
+  }
 }

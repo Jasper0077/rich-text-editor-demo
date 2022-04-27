@@ -8,7 +8,7 @@ function Home() {
     return (
       <li>
         <Link href={`/post/${post.id}`}>
-          <a>Home</a>
+          <a>{post.id}</a>
         </Link>
       </li>
     )

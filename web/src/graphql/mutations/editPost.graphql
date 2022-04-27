@@ -1,0 +1,6 @@
+mutation EditPost($id: Int!, $content: String!) {
+  editPost(id: $id, content: $content) {
+    id
+    content
+  }
+}

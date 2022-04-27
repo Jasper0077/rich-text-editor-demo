@@ -20,11 +20,18 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   createPost?: Maybe<Post>;
+  editPost?: Maybe<Post>;
 };
 
 
 export type MutationCreatePostArgs = {
   content: Scalars['String'];
+};
+
+
+export type MutationEditPostArgs = {
+  content: Scalars['String'];
+  id: Scalars['Int'];
 };
 
 export type Post = {
@@ -53,6 +60,21 @@ export type CreatePostMutationVariables = Exact<{
 
 export type CreatePostMutation = { __typename?: 'Mutation', createPost?: { __typename?: 'Post', id: number, content: string } | null };
 
+export type EditPostMutationVariables = Exact<{
+  id: Scalars['Int'];
+  content: Scalars['String'];
+}>;
+
+
+export type EditPostMutation = { __typename?: 'Mutation', editPost?: { __typename?: 'Post', id: number, content: string } | null };
+
+export type PostQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type PostQuery = { __typename?: 'Query', post: { __typename?: 'Post', id: number, content: string } };
+
 export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -70,6 +92,30 @@ export const CreatePostDocument = gql`
 
 export function useCreatePostMutation() {
   return Urql.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument);
+};
+export const EditPostDocument = gql`
+    mutation EditPost($id: Int!, $content: String!) {
+  editPost(id: $id, content: $content) {
+    id
+    content
+  }
+}
+    `;
+
+export function useEditPostMutation() {
+  return Urql.useMutation<EditPostMutation, EditPostMutationVariables>(EditPostDocument);
+};
+export const PostDocument = gql`
+    query Post($id: Int!) {
+  post(id: $id) {
+    id
+    content
+  }
+}
+    `;
+
+export function usePostQuery(options: Omit<Urql.UseQueryArgs<PostQueryVariables>, 'query'>) {
+  return Urql.useQuery<PostQuery>({ query: PostDocument, ...options });
 };
 export const PostsDocument = gql`
     query Posts {
